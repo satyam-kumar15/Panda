@@ -1,0 +1,76 @@
+import pandas as pd
+
+# Creating a DataFrame from a Dictionary
+data = {'Name': ['John', 'Anna', 'Peter', 'Linda'],
+        'Age': [28, 25, 32, 29],
+        'City': ['New York', 'Paris', 'Berlin', 'London']}
+
+df = pd.DataFrame(data)
+
+# Reading Data from a CSV File
+csv_data = pd.read_csv('data.csv')
+
+# Viewing Data
+head = df.head()  # Shows the first few rows
+tail = df.tail()  # Shows the last few rows
+shape = df.shape  # Returns the number of rows and columns
+info = df.info()  # Provides a summary of the DataFrame
+
+# Indexing and Selecting Data
+name_column = df['Name']  # Selecting a single column
+subset = df[['Name', 'Age']]  # Selecting multiple columns
+row = df.iloc[0]  # Selecting a single row
+subset_rows = df.iloc[1:3]  # Selecting multiple rows
+subset_condition = df[df['Age'] > 28]  # Using a condition to filter rows
+
+# Descriptive Statistics
+describe = df.describe()  # Provides summary statistics
+mean_age = df['Age'].mean()  # Calculates the mean of a specific column
+
+# Missing Data
+na_check = df.isna()  # Checks for missing values
+filled_na = df.fillna(0)  # Fills missing values with a specified value
+drop_na = df.dropna()  # Drops rows with missing values
+
+# Grouping and Aggregation
+grouped = df.groupby('City').mean()  # Groups data and applies an aggregation function
+
+# Sorting Data
+sorted_df = df.sort_values(by='Age', ascending=False)  # Sorts DataFrame by a column
+
+# Adding and Removing Columns
+df['Country'] = ['USA', 'France', 'Germany', 'UK']  # Adds a new column
+df.drop('Country', axis=1, inplace=True)  # Removes a column
+
+# Applying Functions
+def double_age(age):
+    return age * 2
+
+df['Doubled Age'] = df['Age'].apply(double_age)  # Applies a function to a column
+
+# Merging DataFrames
+data1 = {'ID': [1, 2, 3, 4],
+         'Value': ['A', 'B', 'C', 'D']}
+
+data2 = {'ID': [1, 2, 3, 5],
+         'Amount': [100, 200, 300, 500]}
+
+df1 = pd.DataFrame(data1)
+df2 = pd.DataFrame(data2)
+
+merged_df = pd.merge(df1, df2, on='ID', how='inner')  # Merges two DataFrames
+
+# Concatenating DataFrames
+concatenated_df = pd.concat([df1, df2], axis=0)  # Concatenates DataFrames
+
+# Handling Dates
+date_data = {'Date': ['2022-01-01', '2022-01-02', '2022-01-03'],
+             'Value': [10, 20, 30]}
+date_df = pd.DataFrame(date_data)
+date_df['Date'] = pd.to_datetime(date_df['Date'])  # Converts string to datetime
+date_df['Month'] = date_df['Date'].dt.month  # Extracts month from date
+
+# Pivot Tables
+pivot_table = df.pivot_table(values='Age', index='City', columns='Name', fill_value=0)
+
+# End of Code
